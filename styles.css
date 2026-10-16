@@ -1,0 +1,210 @@
+/* Part A: Basic reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Part B: Page text and colors */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f5f9;
+    color: #067206;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: rgb(0, 128, 23);
+    text-align: center;
+    font-weight: 700;
+}
+
+/* cascade example: this first h1 rule is overridden by the later h1 rule.
+   both have the same selector, so the later rule wins. */
+h1 {
+    font-size: 2rem;
+    color: rgb(0, 128, 23);
+}
+
+h1 {
+    color: #ffffff;
+}
+
+/* Part C: header, navigation, and footer */
+header {
+    background-color: #174f20;
+    color: white;
+    text-align: center;
+    padding: 24px 12px;
+    margin-bottom: 24px;
+}
+
+nav {
+    margin-top: 12px;
+}
+
+nav a {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 4px;
+    background-color: #ffffff;
+    color: #3b924a;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #d8e8f5;
+    color: #16c734;
+}
+
+footer {
+    text-align: center;
+    background-color: #174f20;
+    color: white;
+    padding: 14px;
+    margin-top: 28px;
+}
+
+/* Part D: Profile cards and box model */
+/* Card width with border-box is 500px total: width already includes
+   24px padding on each side and 2px border on each side. */
+.card {
+    width: 500px;
+    max-width: 92%;
+    padding: 24px;
+    border: 2px solid #19721b;
+    border-radius: 12px;
+    background-color: white;
+    margin: 0 auto 20px;
+    box-shadow: 0 3px 8px rgba(59, 56, 56, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px rgba(29, 87, 34, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*glowing animation effect when nav clicked*/
+@keyframes card-glow {
+    0% {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        border-color: #c8e2c8;
+    }
+    50% {
+        box-shadow: 0 0 22px rgba(23, 171, 55, 0.8);
+        border-color: #47a03b;
+        transform: translateY(-5px);
+    }
+    100% {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        border-color: #c9e2c8;
+    }
+}
+
+.card:target {
+    animation: card-glow 1.5s ease;
+}
+
+/* The About card has its own border color and a small label. */
+/* The About card has its own border color and a relative position so the absolute badge stays inside it */
+#about {
+    position: relative;
+    border-color: #0a871a;
+}
+
+#about::after {
+    content: "HELLO!";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #08720d;
+    color: #28e22e;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 5px;
+    
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; 
+}
+
+#about:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+/* descendant selector: styles paragraphs inside any card. */
+.card p {
+    margin-top: 10px;
+    color: #2e6233;
+}
+
+/* the intro paragraph starts with a bigger first letter. */
+.intro::first-letter {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #317d3b;
+}
+
+/* Child selector: styles only the li elements directly inside the list. */
+.skills-list {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-top: 16px;
+}
+
+.skills-list > li {
+    background-color: #d8f5da;
+    color: #24682f;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* Visibility examples:
+   display: none removes the paragraph and its space.
+   visibility: hidden hides the text but keeps the paragraph's space. */
+.hide-none {
+    display: none;
+}
+
+.hide-visibility {
+    visibility: hidden;
+}
+
+/* The fixed height keeps this box small; overflow lets us scroll to read all text. */
+.scroll-box {
+    height: 180px;
+    overflow: auto;
+}
+
+
+
+/* Reflection Questions:
+
+1. the second h1 rule wins because both rules use the same selector, h1.
+   When selectors have the same specificity, the rule written later is used.
+
+2. if box-sizing were content-box, the card's total width would be 552px.
+   Calculation: 500px content + 48px padding (24px on each side)
+   + 4px border (2px on each side) = 552px.
+
+3. i would use visibility: hidden when I want to hide something but keep
+   its space on the page. Example, it can stop nearby content from
+   shifting into a different position.
+*/
